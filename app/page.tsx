@@ -1,8 +1,4 @@
-import { Button } from "@/components/ui/button";
 
-const Home = () => {
-  return (
-  )
-};
+const Home = () => <></>;
 
 export default Home;
