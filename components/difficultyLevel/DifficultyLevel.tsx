@@ -1,35 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+
+// Utility functions for cookies
+const getCookie = (name: string): string | null => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
+  return null;
+};
+
+const setCookie = (name: string, value: string, days: number): void => {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+};
 
 const DifficultyLevel: React.FC = () => {
   // State to store selected difficulty
-  const [difficulty, setDifficulty] = useState<string>("easy");
+  const [difficulty, setDifficulty] = useState<string>(
+    getCookie("difficulty") ?? "easy"
+  );
+  const [currentUserScore] = useState<string>(getCookie("userScore") ?? "0");
 
-  // Utility functions for cookies
-  const getCookie = (name: string): string | null => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
-    return null;
-  };
-
-  const setCookie = (name: string, value: string, days: number): void => {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
-  };
-
-  // Load difficulty and userScore from cookies on mount
   useEffect(() => {
-    const savedDifficulty = getCookie("difficulty");
-    if (savedDifficulty) {
-      setDifficulty(savedDifficulty);
-    } else {
-      setCookie("difficulty", "easy", 7);
-    }
-
     const userScore = getCookie("userScore");
     if (!userScore) {
       setCookie("userScore", "0", 7);
@@ -58,7 +53,9 @@ const DifficultyLevel: React.FC = () => {
           <li
             key={option.value}
             className={`cursor-pointer p-2 rounded border ${
-              difficulty === option.value ? "bg-blue-500 text-white" : "bg-gray-100"
+              difficulty === option.value
+                ? "bg-blue-500 text-white"
+                : "bg-gray-100"
             }`}
             onClick={() => handleDifficultyChange(option.value)}
           >
@@ -74,6 +71,11 @@ const DifficultyLevel: React.FC = () => {
           Play
         </button>
       </Link>
+      <div>
+        <strong>
+          Coins: <span>{currentUserScore}</span>
+        </strong>
+      </div>
     </div>
   );
 };
