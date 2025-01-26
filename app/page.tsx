@@ -1,18 +1,7 @@
-import Link from "next/link";
+import DifficultyLevel from "@/components/difficultyLevel/DifficultyLevel";
 
 const Home = () => <main>
-    <ul>
-        <li>
-            Easy
-        </li>
-        <li>
-            Medium
-        </li>
-        <li>
-            Hard
-        </li>
-    </ul>
-    <Link href="/game">Start Game</Link>
+    <DifficultyLevel />
 </main>
 
 export default Home;
