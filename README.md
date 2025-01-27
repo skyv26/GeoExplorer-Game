@@ -1,6 +1,3 @@
-Here's a tailored README file for your **GeoExplorer Trivia Game** based on the provided template:
-
-```markdown
 <!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
@@ -186,6 +183,3 @@ If you like this project, please consider giving it a ⭐️ and sharing your fe
 This project is [MIT](./LICENSE) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-```
-
-This README file aligns with the project description and your template, presenting the features and instructions in an engaging and professional manner. Let me know if you'd like any modifications!
