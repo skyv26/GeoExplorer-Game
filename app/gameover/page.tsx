@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowLeft, MoreVertical, ArrowUp, ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getInitials } from "@/utils/get-initials"
+import { getBaseUrl } from "@/utils/getBaseUrl"
 import { NicknameModalWrapper } from "@/components/nickname-modal-wrapper"
 
 interface LeaderboardEntry {
@@ -12,7 +13,7 @@ interface LeaderboardEntry {
 }
 
 async function getLeaderboard() {
-  const res = await fetch(`/api/leaderboard`, {
+  const res = await fetch(`${getBaseUrl()}/api/leaderboard`, {
     cache: "no-store",
   })
   const data = await res.json()
