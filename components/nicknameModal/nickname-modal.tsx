@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { getBaseUrl } from "@/utils/getBaseUrl"
 
 interface NicknameModalProps {
   isOpen: boolean
@@ -18,7 +19,7 @@ export function NicknameModal({ isOpen, onClose, score }: NicknameModalProps) {
 
   const handleSubmit = async () => {
     if (nickname) {
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leaderboard`, {
+      await fetch(`${getBaseUrl()}/api/leaderboard`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nickname, score }),
