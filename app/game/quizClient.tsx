@@ -83,8 +83,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ difficulty, initialScore }) => 
         currentHint: 0,
         showHint: false,
       }))
-    } catch (error) {
-      console.error("Error fetching question:", error)
+    } catch {
       setState((prev) => ({ ...prev, currentQuestion: null }))
     }
   }
