@@ -49,24 +49,6 @@ const QuizClient: React.FC<QuizClientProps> = ({ difficulty, initialScore }) => 
     fetchNextQuestion()
   }, [initialScore])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setState((prev) => {
-        const newTimeRemaining = prev.timeRemaining - 1
-        if (newTimeRemaining <= 0) {
-          clearInterval(timer)
-          handleGameOver()
-        }
-        return {
-          ...prev,
-          timeRemaining: newTimeRemaining,
-        }
-      })
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [])
-
   const fetchNextQuestion = async () => {
     try {
       const response = await fetch("/api/next-question")
@@ -142,6 +124,7 @@ const QuizClient: React.FC<QuizClientProps> = ({ difficulty, initialScore }) => 
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleGameOver = async () => {
     const finalScore = state.score
     const newHighestScore = Math.max(finalScore, state.highestScore)
@@ -158,6 +141,25 @@ const QuizClient: React.FC<QuizClientProps> = ({ difficulty, initialScore }) => 
     router.push("/gameover")
   }
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setState((prev) => {
+        const newTimeRemaining = prev.timeRemaining - 1
+        if (newTimeRemaining <= 0) {
+          clearInterval(timer)
+          handleGameOver()
+        }
+        return {
+          ...prev,
+          timeRemaining: newTimeRemaining,
+        }
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [handleGameOver])
+
+  
   const handleHintRequest = () => {
     if (state.hintsUsed < 2 || state.score >= 10) {
       setState((prev) => ({
