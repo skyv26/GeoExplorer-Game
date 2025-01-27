@@ -75,7 +75,7 @@
 
 > The live demo will be hosted soon. Stay tuned!
 
-- [Live Demo Coming Soon](#)
+- [Live Demo Coming Soon](https://geo-explorer-game.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,7 +97,7 @@ Before starting, make sure you have:
 Clone this repository to your desired folder:
 
 ```bash
-git clone https://github.com/skyv26/geoexplorer-trivia-game.git
+git clone git@github.com:skyv26/GeoExplorer-Game.git geoexplorer-trivia-game
 cd geoexplorer-trivia-game
 ```
 
