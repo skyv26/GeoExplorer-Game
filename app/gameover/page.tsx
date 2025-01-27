@@ -12,7 +12,7 @@ interface LeaderboardEntry {
 }
 
 async function getLeaderboard() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/leaderboard`, {
+  const res = await fetch(`/api/leaderboard`, {
     cache: "no-store",
   })
   const data = await res.json()
