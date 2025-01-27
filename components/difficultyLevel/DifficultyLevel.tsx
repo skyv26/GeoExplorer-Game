@@ -4,11 +4,23 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Baby, Dumbbell, Swords } from "lucide-react";
 import Cookies from "js-cookie";
-import Link from "next/link";
+// import Link from "next/link";
 import { Difficulty } from "@/types/quiz";
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 const DifficultyLevel = () => {
+  const router = useRouter()
+
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>("easy"); // Default to "easy"
+
+  const handleStartGame = () => {
+    document.cookie = "gameStarted=true; path=/"
+    Cookies.set("quizDifficulty", selectedDifficulty, {
+      expires: 1,
+    });
+    router.push("/game")
+  }
 
   useEffect(() => {
     // Safely access cookies only on the client
@@ -67,17 +79,18 @@ const DifficultyLevel = () => {
           );
         })}
       </div>
-      <Link
+      <Button className="bg-[#A729F5] text-white" onClick={handleStartGame} size="lg">
+      Start Game
+    </Button>
+      {/* <Link
         href="/game"
         className="block text-center py-4 rounded-lg font-semibold w-full bg-[#A729F5] text-white"
         onClick={() => {
-          Cookies.set("quizDifficulty", selectedDifficulty, {
-            expires: 1,
-          });
+          
         }}
       >
         Start Quiz
-      </Link>
+      </Link> */}
     </div>
   );
 };

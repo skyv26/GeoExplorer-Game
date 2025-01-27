@@ -1,34 +1,22 @@
-import { Suspense } from "react"
-// import { questions } from "./quiz"
-import QuizComponent from "./quiz-component"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Suspense } from "react";
+import { cookies } from "next/headers";
+import QuizClient from "./quizClient";
 
-const QuizPage = async() => {
-  // const question = await (await fetch('http://localhost:3000/api/next-question')).json();
+const QuizPage = async () => {
+  // Fetch cookies server-side
+  const cookieStore = await cookies();
+  const difficulty = cookieStore.get("quizDifficulty")?.value || "Easy";
+  const userScore = Number.parseInt(cookieStore.get("userScore")?.value || "0");
 
+  // Pass necessary data as props to the client component
   return (
-    <div className="min-h-screen bg-background">
-      <Suspense fallback={<QuizSkeleton />}>
-        <QuizComponent />
+    <div className="container mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">Quiz Game - {difficulty}</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <QuizClient difficulty={difficulty} initialScore={userScore} />
       </Suspense>
     </div>
-  )
-}
-
-function QuizSkeleton() {
-  return (
-    <div className="container mx-auto p-4 space-y-8">
-      <div className="space-y-4">
-        <Skeleton className="h-8 w-32" />
-        <Skeleton className="h-12 w-full" />
-        <div className="space-y-2">
-          {[...Array(4)].map((_, i) => (
-            <Skeleton key={i} className="h-16 w-full" />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+  );
 }
 
 export default QuizPage;
